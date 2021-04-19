@@ -32,7 +32,6 @@ export function getCurrentLayout(state: Object) {
  */
 export function getMaxColumnCount() {
     const configuredMax = interfaceConfig.TILE_VIEW_MAX_COLUMNS || 5;
-
     return Math.min(Math.max(configuredMax, 1), 5);
 }
 
@@ -54,9 +53,24 @@ export function getTileViewGridDimensions(state: Object, maxColumns: number = ge
     const numberOfParticipants = state['features/base/participants'].length - (iAmRecorder ? 1 : 0);
 
     const columnsToMaintainASquare = Math.ceil(Math.sqrt(numberOfParticipants));
-    const columns = Math.min(columnsToMaintainASquare, maxColumns);
-    const rows = Math.ceil(numberOfParticipants / columns);
-    const visibleRows = Math.min(maxColumns, rows);
+    let columns = Math.min(columnsToMaintainASquare, maxColumns);
+    let rows = Math.ceil(numberOfParticipants / columns);
+    let visibleRows = Math.min(maxColumns, rows);
+    if(interfaceConfig.DEFAULT_BACKGROUND == "transparent"){
+        columns = numberOfParticipants
+        rows = 1
+        visibleRows = 1
+
+    }
+    if(interfaceConfig.DEFAULT_BACKGROUND == "transparent-vertical"){
+        rows = numberOfParticipants
+        columns = 1
+        visibleRows = numberOfParticipants
+
+    }
+    
+
+
 
     return {
         columns,
@@ -78,6 +92,12 @@ export function shouldDisplayTileView(state: Object = {}) {
     // In case of a lonely meeting, we don't allow tile view.
     // But it's a special case too, as we don't even render the button,
     // see TileViewButton component.
+    if(interfaceConfig.DEFAULT_BACKGROUND == "transparent"){
+        return true;
+    }
+    if(interfaceConfig.DEFAULT_BACKGROUND == "transparent-vertical"){
+        return true;
+    }
     if (participantCount < 2) {
         return false;
     }
