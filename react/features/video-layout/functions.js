@@ -86,9 +86,24 @@ export function getTileViewGridDimensions(state: Object) {
     const numberOfParticipants = state['features/base/participants'].length - (iAmRecorder ? 1 : 0);
 
     const columnsToMaintainASquare = Math.ceil(Math.sqrt(numberOfParticipants));
-    const columns = Math.min(columnsToMaintainASquare, maxColumns);
-    const rows = Math.ceil(numberOfParticipants / columns);
-    const visibleRows = Math.min(maxColumns, rows);
+    let columns = Math.min(columnsToMaintainASquare, maxColumns);
+    let rows = Math.ceil(numberOfParticipants / columns);
+    let visibleRows = Math.min(maxColumns, rows);
+    if(interfaceConfig.DEFAULT_BACKGROUND == "transparent"){
+        columns = numberOfParticipants
+        rows = 1
+        visibleRows = 1
+
+    }
+    if(interfaceConfig.DEFAULT_BACKGROUND == "transparent-vertical"){
+        rows = numberOfParticipants
+        columns = 1
+        visibleRows = numberOfParticipants
+
+    }
+    
+
+
 
     return {
         columns,
@@ -105,7 +120,19 @@ export function getTileViewGridDimensions(state: Object) {
  * @returns {boolean} True if tile view should be displayed.
  */
 export function shouldDisplayTileView(state: Object = {}) {
+
+    if(interfaceConfig.DEFAULT_BACKGROUND == "transparent"){
+        return true;
+    }
+    if(interfaceConfig.DEFAULT_BACKGROUND == "transparent-vertical"){
+        return true;
+    }
     const participantCount = getParticipantCount(state);
+    if (participantCount < 2) {
+        return false;
+    }
+    
+    
 
     const tileViewEnabledFeatureFlag = getFeatureFlag(state, TILE_VIEW_ENABLED, true);
     const { disableTileView } = state['features/base/config'];
