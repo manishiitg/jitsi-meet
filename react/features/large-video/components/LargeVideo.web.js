@@ -74,11 +74,18 @@ class LargeVideo extends Component<Props> {
             _noAutoPlayVideo
         } = this.props;
         const style = this._getCustomSyles();
-        const className = `videocontainer${_isChatOpen ? ' shift-right' : ''}`;
+        // const className = `videocontainer${_isChatOpen ? ' shift-right' : ''}`;
 
         let largeVideoWrapperStyle = {}
         if(interfaceConfig.DEFAULT_BACKGROUND == "aforpineapple" || window.location.href.indexOf("aforpineapple") !== -1){
             style.backgroundImage = `url("https://storage.googleapis.com/images.platoo.in/Aforpineapple%20stage%20image.jpg")`
+            style.backgroundRepeat = "no-repeat"
+            style.backgroundSize = "cover"
+
+        }
+
+        if(interfaceConfig.DEFAULT_BACKGROUND == "investsaudi" || window.location.href.indexOf("investsaudi") !== -1){
+            style.backgroundImage = `url("https://storage.googleapis.com/images.platoo.in/exhibition.jpg")`
             style.backgroundRepeat = "no-repeat"
             style.backgroundSize = "cover"
 
