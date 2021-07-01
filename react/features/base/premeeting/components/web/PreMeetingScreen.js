@@ -30,6 +30,11 @@ type Props = {
     name?: string,
 
     /**
+     * Indicates whether the copy url button should be shown
+     */
+    showCopyUrlButton: boolean,
+
+    /**
      * Indicates whether the avatar should be shown when video is off
      */
     showAvatar: boolean,
@@ -57,7 +62,12 @@ type Props = {
     /**
      * The video track to render as preview (if omitted, the default local track will be rendered).
      */
-    videoTrack?: Object
+    videoTrack?: Object,
+
+    /**
+     * Array with the buttons which this Toolbox should display.
+     */
+    visibleButtons?: Array<string>
 }
 
 /**
@@ -72,6 +82,7 @@ export default class PreMeetingScreen extends PureComponent<Props> {
      */
     static defaultProps = {
         showAvatar: true,
+        showCopyUrlButton: true,
         showConferenceInfo: true
     };
 
@@ -81,8 +92,17 @@ export default class PreMeetingScreen extends PureComponent<Props> {
      * @inheritdoc
      */
     render() {
-        const { name, showAvatar, showConferenceInfo, title, videoMuted, videoTrack } = this.props;
-        const showSharingButton = allowUrlSharing();
+        const {
+            name,
+            showAvatar,
+            showConferenceInfo,
+            showCopyUrlButton,
+            title,
+            videoMuted,
+            videoTrack,
+            visibleButtons
+        } = this.props;
+        const showSharingButton = allowUrlSharing() && showCopyUrlButton;
 
         return (
             <div
@@ -92,7 +112,6 @@ export default class PreMeetingScreen extends PureComponent<Props> {
                 <Preview
                     videoMuted = { videoMuted }
                     videoTrack = { videoTrack } />
-                {!videoMuted && <div className = 'preview-overlay' />}
                 <div className = 'content'>
                     {showAvatar && videoMuted && (
                         <Avatar
@@ -104,9 +123,9 @@ export default class PreMeetingScreen extends PureComponent<Props> {
                     )}
                     {showConferenceInfo && (
                         <>
-                            <div className = 'title'>
+                            <h1 className = 'title'>
                                 { title }
-                            </div>
+                            </h1>
                             {showSharingButton ? <CopyMeetingUrl /> : null}
                         </>
                     )}
@@ -116,7 +135,9 @@ export default class PreMeetingScreen extends PureComponent<Props> {
                             <div className = 'toolbox-content-items'>
                                 <AudioSettingsButton visible = { true } />
                                 <VideoSettingsButton visible = { true } />
-                                <VideoBackgroundButton visible = { checkBlurSupport() } />
+                                { ((visibleButtons && visibleButtons.includes('select-background'))
+                                   || (visibleButtons && visibleButtons.includes('videobackgroundblur')))
+                                   && <VideoBackgroundButton visible = { checkBlurSupport() } /> }
                             </div>
                         </div>
                     </div>

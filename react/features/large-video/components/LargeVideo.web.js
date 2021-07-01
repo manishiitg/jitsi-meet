@@ -6,6 +6,7 @@ import { Watermarks } from '../../base/react';
 import { connect } from '../../base/redux';
 import { setColorAlpha } from '../../base/util';
 import { fetchCustomBrandingData } from '../../dynamic-branding';
+import { SharedVideo } from '../../shared-video/components/web';
 import { Captions } from '../../subtitles/';
 
 
@@ -68,7 +69,13 @@ class LargeVideo extends Component<Props> {
      * @returns {React$Element}
      */
     render() {
-        let style = this._getCustomSyles();
+        const {
+            _isChatOpen,
+            _noAutoPlayVideo
+        } = this.props;
+        const style = this._getCustomSyles();
+        const className = `videocontainer${_isChatOpen ? ' shift-right' : ''}`;
+
         let largeVideoWrapperStyle = {}
         if(interfaceConfig.DEFAULT_BACKGROUND == "aforpineapple" || window.location.href.indexOf("aforpineapple") !== -1){
             style.backgroundImage = `url("https://storage.googleapis.com/images.platoo.in/Aforpineapple%20stage%20image.jpg")`
@@ -76,7 +83,6 @@ class LargeVideo extends Component<Props> {
             style.backgroundSize = "cover"
 
         }
-
         
         
         const className = `videocontainer${this.props._isChatOpen ? ' shift-right' : ''}`;
@@ -97,12 +103,12 @@ class LargeVideo extends Component<Props> {
                 
                 {/* { is_transparent ? null : <Subject /> }
                 { is_transparent ? null : <InviteMore /> }
-                { is_transparent ? null : <div id = 'sharedVideo'> */}
+                { is_transparent ? null : <SharedVideo /> */}
                 
                 { is_transparent ? null : <div id = 'etherpad' /> }
                 {/* { is_transparent ? null : <Watermarks /> } */}
                 
-
+                
                 <div id = 'dominantSpeaker'>
                     <div className = 'dynamic-shadow' />
                     <div id = 'dominantSpeakerAvatarContainer' />
@@ -120,9 +126,11 @@ class LargeVideo extends Component<Props> {
                       * another container for the background and the
                       * largeVideoWrapper in order to hide/show them.
                       */}
-                    <div id = 'largeVideoWrapper'>
+                    <div
+                        id = 'largeVideoWrapper'
+                        role = 'figure' >
                         <video
-                            autoPlay = { !this.props._noAutoPlayVideo }
+                            autoPlay = { !_noAutoPlayVideo }
                             id = 'largeVideo'
                             muted = { true }
                             playsInline = { true } /* for Safari on iOS to work */ />
