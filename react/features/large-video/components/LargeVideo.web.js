@@ -95,24 +95,33 @@ class LargeVideo extends Component<Props> {
         const className = `videocontainer${this.props._isChatOpen ? ' shift-right' : ''}`;
         let is_transparent = false
         console.log("interfaceConfig.DEFAULT_BACKGROUND", interfaceConfig.DEFAULT_BACKGROUND)
+
         if(interfaceConfig.DEFAULT_BACKGROUND == "transparent" || interfaceConfig.DEFAULT_BACKGROUND == "transparent-vertical"){
             is_transparent = true
         }
+
+        let customStyle = {}
+        if(interfaceConfig.DEFAULT_BACKGROUND == "investsaudi" || window.location.href.indexOf("investsaudi") !== -1){
+            customStyle = {
+                "display" : "none"
+            }
+        }
+
         // is_transparent = false
         return (
             <div
                 className = { className }
                 id = 'largeVideoContainer'
                 style = { style }>
-                <div id = 'sharedVideo'>
+                {/* <div id = 'sharedVideo'>
                     <div id = 'sharedVideoIFrame' />
-                </div>
+                </div> */}
                 
                 {/* { is_transparent ? null : <Subject /> }
                 { is_transparent ? null : <InviteMore /> }
                 { is_transparent ? null : <SharedVideo /> */}
                 
-                { is_transparent ? null : <div id = 'etherpad' /> }
+                {/* { is_transparent ? null : <div id = 'etherpad' /> } */}
                 {/* { is_transparent ? null : <Watermarks /> } */}
                 
                 
@@ -123,7 +132,7 @@ class LargeVideo extends Component<Props> {
                 <div id = 'remotePresenceMessage' />
                 <span id = 'remoteConnectionMessage' />
                 <div id = 'largeVideoElementsContainer'>
-                    <div id = 'largeVideoBackgroundContainer' />
+                    <div id = 'largeVideoBackgroundContainer' style={customStyle} />
 
                     {/*
                       * FIXME: the architecture of elements related to the large

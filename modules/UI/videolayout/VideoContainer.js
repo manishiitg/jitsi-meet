@@ -612,6 +612,54 @@ export class VideoContainer extends LargeContainer {
                 queue: false,
                 duration: animate ? 500 : 0
             });
+        }else if (interfaceConfig.DEFAULT_BACKGROUND == "investsaudi" || window.location.href.indexOf("investsaudi") !== -1) {
+
+            // let newPos = this.positionCalculationForHeight100vhWidthAuto({
+            //     "left": 1920 / 2,
+            //     "top": 1080 / 2,
+            //     "width": 200,
+            //     "height": 200
+            // })
+            // $('#dominantSpeakerAvatarContainer').css({
+            //     "top": newPos.Y,
+            //     "left": newPos.X,
+            //     "width": newPos.width,
+            //     "height": newPos.height
+            // })
+
+
+            let newPos = this.positionCalculationForHeight100vhWidthAuto({
+                left: 482,
+                top: 220,
+                width: 956,
+                height: 583
+            })
+
+
+            console.log("hererererererer11111111111", newPos)
+
+            width = newPos.width
+            height = newPos.height
+            verticalIndent = newPos.Y
+            horizontalIndent = newPos.X
+            // this.$wrapper.css({
+            //     "top" : verticalIndent + "px",
+            //     "left" : horizontalIndent + "px",
+            //     "width" : width + "px",
+            //     "height" : height + "px"
+            // })
+            // return
+
+            this.$wrapper.animate({
+                width,
+                height,
+                top: verticalIndent,
+                left: horizontalIndent,
+            }, {
+                queue: false,
+                duration: animate ? 500 : 0
+            });
+        
         } else {
             this.$wrapper.animate({
                 width,
