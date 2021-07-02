@@ -23,6 +23,14 @@
         max-width: 100%;
     }
 
+    &-conference-timer {
+        display: block;
+        font-size: 12px;
+        opacity: 0.6;
+        float: right;
+        padding-right: 10px;
+        padding-top: 5px;
+    }
     @media (max-width: 500px) {
         flex-wrap: wrap;
         max-width: 100%;

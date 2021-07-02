@@ -62,7 +62,7 @@ export function getDeepLinkingPage(state) {
         return Promise.resolve();
     }
 
-    if (isMobileBrowser()) { // mobile
+    if (isMobileBrowser() && false) { // mobile
         const mobileAppPromo
             = typeof interfaceConfig === 'object'
                 && interfaceConfig.MOBILE_APP_PROMO;

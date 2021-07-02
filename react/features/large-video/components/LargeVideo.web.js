@@ -9,6 +9,7 @@ import { fetchCustomBrandingData } from '../../dynamic-branding';
 import { SharedVideo } from '../../shared-video/components/web';
 import { Captions } from '../../subtitles/';
 
+
 declare var interfaceConfig: Object;
 
 type Props = {
@@ -73,18 +74,57 @@ class LargeVideo extends Component<Props> {
             _noAutoPlayVideo
         } = this.props;
         const style = this._getCustomSyles();
-        const className = `videocontainer${_isChatOpen ? ' shift-right' : ''}`;
+        // const className = `videocontainer${_isChatOpen ? ' shift-right' : ''}`;
 
+        let largeVideoWrapperStyle = {}
+        if(interfaceConfig.DEFAULT_BACKGROUND == "aforpineapple" || window.location.href.indexOf("aforpineapple") !== -1){
+            style.backgroundImage = `url("https://storage.googleapis.com/images.platoo.in/Aforpineapple%20stage%20image.jpg")`
+            style.backgroundRepeat = "no-repeat"
+            style.backgroundSize = "cover"
+
+        }
+
+        if(interfaceConfig.DEFAULT_BACKGROUND == "investsaudi" || window.location.href.indexOf("investsaudi") !== -1){
+            style.backgroundImage = `url("https://storage.googleapis.com/images.platoo.in/exhibition.jpg")`
+            style.backgroundRepeat = "no-repeat"
+            style.backgroundSize = "cover"
+
+        }
+        
+        
+        const className = `videocontainer${this.props._isChatOpen ? ' shift-right' : ''}`;
+        let is_transparent = false
+        console.log("interfaceConfig.DEFAULT_BACKGROUND", interfaceConfig.DEFAULT_BACKGROUND)
+
+        if(interfaceConfig.DEFAULT_BACKGROUND == "transparent" || interfaceConfig.DEFAULT_BACKGROUND == "transparent-vertical"){
+            is_transparent = true
+        }
+
+        let customStyle = {}
+        if(interfaceConfig.DEFAULT_BACKGROUND == "investsaudi" || window.location.href.indexOf("investsaudi") !== -1){
+            customStyle = {
+                "display" : "none"
+            }
+        }
+
+        // is_transparent = false
         return (
             <div
                 className = { className }
                 id = 'largeVideoContainer'
                 style = { style }>
-                <SharedVideo />
-                <div id = 'etherpad' />
-
-                <Watermarks />
-
+                {/* <div id = 'sharedVideo'>
+                    <div id = 'sharedVideoIFrame' />
+                </div> */}
+                
+                {/* { is_transparent ? null : <Subject /> }
+                { is_transparent ? null : <InviteMore /> }
+                { is_transparent ? null : <SharedVideo /> */}
+                
+                {/* { is_transparent ? null : <div id = 'etherpad' /> } */}
+                {/* { is_transparent ? null : <Watermarks /> } */}
+                
+                
                 <div id = 'dominantSpeaker'>
                     <div className = 'dynamic-shadow' />
                     <div id = 'dominantSpeakerAvatarContainer' />
@@ -92,7 +132,7 @@ class LargeVideo extends Component<Props> {
                 <div id = 'remotePresenceMessage' />
                 <span id = 'remoteConnectionMessage' />
                 <div id = 'largeVideoElementsContainer'>
-                    <div id = 'largeVideoBackgroundContainer' />
+                    <div id = 'largeVideoBackgroundContainer' style={customStyle} />
 
                     {/*
                       * FIXME: the architecture of elements related to the large
@@ -140,6 +180,10 @@ class LargeVideo extends Component<Props> {
             styles.backgroundImage = `url(${_customBackgroundImageUrl})`;
             styles.backgroundSize = 'cover';
         }
+        if (interfaceConfig.DEFAULT_BACKGROUND == "transparent"){
+            styles.backgroundColor = 'transparent !important';
+        }
+
 
         return styles;
     }

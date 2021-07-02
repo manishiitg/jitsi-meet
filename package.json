@@ -53,6 +53,7 @@
     "jitsi-meet-logger": "github:jitsi/jitsi-meet-logger#v1.0.0",
     "jquery": "3.5.1",
     "jquery-i18next": "1.2.1",
+    "jQuery-Impromptu": "github:trentrichardson/jQuery-Impromptu#v6.0.0",
     "js-md5": "0.6.1",
     "jwt-decode": "2.2.0",
     "lib-jitsi-meet": "github:jitsi/lib-jitsi-meet#0cdfb79c2e7144a349edad9e9fceaa2e81c74313",

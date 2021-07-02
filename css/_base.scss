@@ -125,8 +125,10 @@ form {
 }
 
 .leftwatermark {
-    left: 32px;
-    top: 32px;
+    // left: 32px;
+    // top: 32px;
+    left: 5px;
+    top: 5px;
     background-position: center left;
     background-repeat: no-repeat;
     background-size: contain;
