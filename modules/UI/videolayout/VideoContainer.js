@@ -629,10 +629,10 @@ export class VideoContainer extends LargeContainer {
 
 
             let newPos = this.positionCalculationForHeight100vhWidthAuto({
-                left: 482,
+                left: 483,
                 top: 220,
-                width: 956,
-                height: 583
+                width: 958,
+                height: 536
             })
 
 
